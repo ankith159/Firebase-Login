@@ -1,3 +1,4 @@
+import 'package:firebaselogin/account/account.dart';
 import 'package:firebaselogin/home/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class TabPage extends StatelessWidget {
                         body: CupertinoPageScaffold(
                             backgroundColor:
                                 const Color.fromARGB(255, 255, 255, 255),
-                            child: Home()));
+                            child: Account()));
                   });
                   break;
               }

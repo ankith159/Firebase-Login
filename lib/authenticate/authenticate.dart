@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:firebaselogin/authenticate/register.dart';
 import 'package:firebaselogin/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../loading.dart';
+import 'elevated_icon_button.dart';
 
 class Authenticate extends StatefulWidget {
   @override
@@ -69,6 +71,27 @@ class _AuthenticateState extends State<Authenticate> {
                         //             });
                         //           }
                         //         }))
+                        ElevatedIconButton(
+                          colorValue: Colors.red,
+                          text: ' Continue with Google',
+                          iconData: Icon(FontAwesomeIcons.google),
+                          onClicked: () async {
+                            setState(() => loading = true);
+
+                            dynamic result;
+                            try {
+                              result = await AuthService().googleSignIn();
+                            } catch (e) {}
+
+                            if (result == null) {
+                              setState(() {
+                                error =
+                                    'Coud not sign in with those credentials';
+                                loading = false;
+                              });
+                            }
+                          },
+                        ),
                         Align(
                           alignment: Alignment.center,
                           child: Form(
@@ -87,7 +110,7 @@ class _AuthenticateState extends State<Authenticate> {
                                           border: OutlineInputBorder(
                                               borderRadius:
                                                   BorderRadius.circular(30)),
-                                          hintText: 'email',
+                                          hintText: 'Email',
                                           filled: true,
                                           fillColor: Colors.white54,
                                           hintStyle:
@@ -126,7 +149,7 @@ class _AuthenticateState extends State<Authenticate> {
                                         decoration: BoxDecoration(
                                             color: Colors.deepPurpleAccent,
                                             borderRadius:
-                                                BorderRadius.circular(35)),
+                                                BorderRadius.circular(25)),
                                         child: TextButton(
                                           onPressed: () {
                                             if (_formKey.currentState
